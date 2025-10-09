@@ -27,9 +27,10 @@ public class MongoUserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
        UserDocument userDocument = objectMapper.convertValue(user, UserDocument.class);
-        userMongoRepository.save(userDocument);
+       UserDocument saveDocument = userMongoRepository.save(userDocument);
+       return objectMapper.convertValue(saveDocument, User.class);
 
     }
 

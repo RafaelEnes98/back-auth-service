@@ -8,7 +8,7 @@ public interface IUserRepository {
 
     boolean existsByEmail(String email);
     boolean existsByCpf(String cpf);
-    void save(User user);
+    User save(User user);
     Optional<User> findByEmail(String email);
     Optional<User> findByCpf(String cpf);
 
