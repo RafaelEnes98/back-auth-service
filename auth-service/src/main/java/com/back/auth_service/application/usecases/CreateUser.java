@@ -1,7 +1,8 @@
 package com.back.auth_service.application.usecases;
 
-import com.back.auth_service.api.dtos.request.UserRequest;
 import com.back.auth_service.application.repositories.IUserRepository;
+import com.back.auth_service.domain.exception.CpfAlreadyExistsException;
+import com.back.auth_service.domain.exception.EmailAlreadyExistsException;
 import com.back.auth_service.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +24,13 @@ public class CreateUser {
 
     private void validateUniqueEmail(final String email) {
         if (iUserRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Email already registered");
+            throw new EmailAlreadyExistsException(email);
         }
     }
 
     private void validateUniqueCpf(final String cpf) {
         if (iUserRepository.existsByCpf(cpf)) {
-            throw new IllegalArgumentException("CPF already registered");
+            throw new CpfAlreadyExistsException(cpf);
         }
 
     }

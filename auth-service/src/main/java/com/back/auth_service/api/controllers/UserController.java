@@ -5,6 +5,7 @@ import com.back.auth_service.api.dtos.response.UserResponse;
 import com.back.auth_service.application.usecases.CreateUser;
 import com.back.auth_service.domain.model.User;
 import com.back.auth_service.infra.mapper.UserApiMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class UserController {
     private final UserApiMapper userApiMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponse> create(@RequestBody UserRequest request) {
+    public ResponseEntity<UserResponse> create(@Valid @RequestBody UserRequest request) {
         User user = userApiMapper.toDomain(request);
         User created = createUser.execute(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userApiMapper.toResponse(created));
