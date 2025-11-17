@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class User {
 
     private String id;
@@ -34,6 +34,10 @@ public class User {
 
     public boolean authenticate(final String passwordEntered) {
         return BCrypt.checkpw(passwordEntered, this.password);
+    }
+
+    public String getHashedPassword() {
+        return this.password;
     }
 
     private static void validateEmail(final String email) {
